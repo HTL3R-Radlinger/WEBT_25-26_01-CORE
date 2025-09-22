@@ -1,0 +1,7 @@
+services:
+  app:
+    image: radlinger/mealplan
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html
