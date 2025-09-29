@@ -1,6 +1,6 @@
 services:
   app:
-    image: radlinger/mealplan
+    image: mealplan:v1
     ports:
       - 80:80
     volumes:

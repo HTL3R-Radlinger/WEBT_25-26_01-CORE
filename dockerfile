@@ -31,4 +31,4 @@ RUN chown -R www-data:www-data *
 
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
-# docker build -t radlinger/mealplan .
+# docker build -t mealplan:v1 .
