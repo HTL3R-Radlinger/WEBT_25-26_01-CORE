@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: webserver
     image: mealplan:v1
     ports:
       - 80:80
