@@ -25,7 +25,7 @@
 <h1>Welcome to our mealplan website!</h1>
 <section id="sec1">
     <p>
-        This is a website made by Felix Radbauer & Alexander Bachinger for our MEDT WEBT CORE 1 Exercise.
+        This is a website made by Felix Radbauer, Alexander Bachinger & Sujing Ye for our MEDT WEBT CORE 1 Exercise.
     </p>
 </section>
 </body>

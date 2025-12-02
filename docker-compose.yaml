@@ -1,8 +1,11 @@
 services:
   app:
     container_name: webserver
-    image: mealplan:v1
+    #image: mealplan:v1
     ports:
       - 80:80
     volumes:
       - .:/var/www/html
+    build:
+      context: .
+      dockerfile: dockerfile
