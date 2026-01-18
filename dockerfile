@@ -1,34 +1,20 @@
+# Base image: PHP 8.2 with Apache preconfigured
 FROM php:8.2-apache
 
-RUN apt-get update -y && apt-get install -y openssl curl libpng-dev nano git cron sqlite3 zip unzip zlib1g-dev libpq-dev libicu-dev libzip-dev inetutils-ping graphicsmagick inkscape
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
-
-RUN docker-php-ext-install pdo pdo_pgsql pdo_mysql zip gd exif 
-
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get update -y
-RUN apt install nodejs -y
-RUN apt install fonts-lato
-
+# Replace the default Apache virtual host configuration
 COPY httpd-vhosts.conf /etc/apache2/sites-available/000-default.conf
+
+# Enable Apache mod_rewrite (commonly required for routing and clean URLs)
 RUN a2enmod rewrite
 
-RUN echo "max_execution_time = 1200" > /usr/local/etc/php/conf.d/execution.ini
-RUN echo "memory_limit = 2048M" >> /usr/local/etc/php/conf.d/execution.ini
-RUN echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/execution.ini
-RUN echo "upload_max_filesize = 100M" >> /usr/local/etc/php/conf.d/execution.ini
-
+# Set the working directory for the application
 WORKDIR /var/www/html/
 
-COPY . /var/www/html/ 
+# Copy all project files into the container
+COPY . .
 
-RUN rm dockerfile
-RUN rm docker-compose.yaml
-RUN rm 01_webt-core-docker.md
-RUN composer install
-
+# Set correct ownership so Apache (www-data) can read/write files
 RUN chown -R www-data:www-data *
 
+# Start Apache in the foreground (required for Docker containers)
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-
-# docker build -t mealplan:v1 .
